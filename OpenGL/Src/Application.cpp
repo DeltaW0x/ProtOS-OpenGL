@@ -1,5 +1,9 @@
 #include "Application.hpp"
 #include <iostream>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_opengl3.h>
+
 
 Application::Application(int width, int height,const char* title ){
         m_time = 0;
@@ -32,6 +36,18 @@ Application::Application(int width, int height,const char* title ){
             std::cout << "Failed to initialize GLAD" << std::endl;
             return;
         }
+
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+        ImGui::StyleColorsDark();
+
+
+        ImGui_ImplGlfw_InitForOpenGL(m_window, true);
+        ImGui_ImplOpenGL3_Init("#version 130");
+        ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_MULTISAMPLE);
 
@@ -45,8 +61,22 @@ void Application::mainLoop()
 
         processInput();
         glfwPollEvents();
+
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        ImGui::Begin("BlendShapes");
+        ImGui::Checkbox("Thooty Mouth", &m_protogenFace->thootyShape);
+        ImGui::End();
+    
         render();
+
     }
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
     glfwTerminate();
     return;
 }
@@ -67,10 +97,13 @@ void Application::init()
 
 void Application::render()
 {
-    glClearColor(0.117, 0.117, 0.117, 1.0);
+    ImGui::Render();
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     m_RenderManager->RenderAll();
+
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     swapBuffers();
 }

@@ -1,0 +1,5 @@
+﻿  Application.cpp
+C:\Users\lucac\source\repos\OpenGL\OpenGL\Src\Protogen\Protogen_Face.hpp(37,106179): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\lucac\source\repos\OpenGL\OpenGL\Src\Protogen\Protogen_Face.hpp(38,106213): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\lucac\source\repos\OpenGL\OpenGL\Src\Protogen\Protogen_Visor.hpp(34,17307): warning C4305: 'initializing': truncation from 'double' to 'float'
+  OpenGL.vcxproj -> C:\Users\lucac\source\repos\OpenGL\x64\Debug\OpenGL.exe

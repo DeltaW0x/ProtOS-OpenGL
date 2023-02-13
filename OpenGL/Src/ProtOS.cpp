@@ -3,6 +3,6 @@
 
 int main()
 {
-    Application* app = new Application(1024, 256,"ProtOS");
+    Application* app = new Application(1280, 320,"ProtOS");
     app->start();
 }

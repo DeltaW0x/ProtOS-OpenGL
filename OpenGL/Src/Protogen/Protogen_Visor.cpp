@@ -40,6 +40,7 @@ Protogen_Visor::~Protogen_Visor()
 
 void Protogen_Visor::Render()
 {
+
     visorShader->use();
     int projLoc = glGetUniformLocation(visorShader->ID, "projection");
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));

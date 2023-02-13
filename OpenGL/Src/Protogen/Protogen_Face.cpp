@@ -1,4 +1,5 @@
 #include "Protogen_Face.hpp"
+#include <imgui/imgui.h>
 
 Protogen_Face::Protogen_Face()
 {
@@ -54,7 +55,19 @@ Protogen_Face::~Protogen_Face()
 
 void Protogen_Face::Render()
 {
+    
+
     protoShader->use();
+
+    if (thootyShape) {
+        int blendLoc = glGetUniformLocation(protoShader->ID, "thoothy_w");
+        glUniform1f(blendLoc, 1.0f);
+    }
+    else {
+        int blendLoc = glGetUniformLocation(protoShader->ID, "thoothy_w");
+        glUniform1f(blendLoc, 0.0f);
+    }
+
     int projLoc = glGetUniformLocation(protoShader->ID, "projection");
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 
